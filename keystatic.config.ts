@@ -1,40 +1,64 @@
-import { config, fields, collection } from '@keystatic/core';
+import { collection, config, fields } from "@keystatic/core";
 
 export default config({
   storage: {
-    kind: 'local',
+    kind: "local",
   },
   collections: {
     blog: collection({
-      label: 'Blog',
-      slugField: 'title',
-      path: 'src/content/blog/*',
-      entryLayout: 'content',
-      format: { contentField: 'content' },
-      columns: ['title', 'pubDate'],
+      label: "Blog",
+      slugField: "title",
+      path: "src/data/blog/*",
+      entryLayout: "content",
+      format: { contentField: "content" },
+      columns: ["title", "pubDatetime", "draft"],
       schema: {
-        title: fields.slug({ name: { label: 'Title' } }),
+        title: fields.slug({ name: { label: "Title" } }),
         description: fields.text({
-          label: 'Description',
+          label: "Description",
           multiline: true,
         }),
-        pubDate: fields.date({ label: 'Publish date' }),
-        updatedDate: fields.date({
-          label: 'Updated date',
+        pubDatetime: fields.date({ label: "Publish date" }),
+        modDatetime: fields.date({
+          label: "Modified date",
           validation: { isRequired: false },
         }),
-        heroImage: fields.image({
-          label: 'Hero image',
-          directory: 'src/assets/images/blog',
-          publicPath: '@assets/images/blog/',
+        tags: fields.array(fields.text({ label: "Tag" }), {
+          label: "Tags",
+          itemLabel: props => props.value ?? "tag",
+        }),
+        ogImage: fields.image({
+          label: "OG image",
+          directory: "src/assets/images/blog",
+          publicPath: "@/assets/images/blog/",
+          validation: { isRequired: false },
+        }),
+        draft: fields.checkbox({
+          label: "Draft",
+          defaultValue: false,
+        }),
+        featured: fields.checkbox({
+          label: "Featured",
+          defaultValue: false,
+        }),
+        canonicalURL: fields.text({
+          label: "Canonical URL",
+          validation: { isRequired: false },
+        }),
+        hideEditPost: fields.checkbox({
+          label: "Hide edit link",
+          defaultValue: false,
+        }),
+        timezone: fields.text({
+          label: "Timezone",
           validation: { isRequired: false },
         }),
         content: fields.markdoc({
-          label: 'Content',
+          label: "Content",
           options: {
             image: {
-              directory: 'src/assets/images/blog',
-              publicPath: '@assets/images/blog/',
+              directory: "src/assets/images/blog",
+              publicPath: "@/assets/images/blog/",
             },
           },
         }),
