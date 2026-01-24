@@ -2,7 +2,6 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import IconCalendar from "@/assets/icons/IconCalendar.svg";
 import { SITE } from "@/config";
 
 dayjs.extend(utc);
@@ -18,38 +17,36 @@ type Props = {
 
 const {
   pubDatetime,
-  modDatetime,
   size = "sm",
   class: className = "",
   timezone: postTimezone,
 } = Astro.props;
 
 /* ========== Formatted Datetime ========== */
-const isModified = modDatetime && modDatetime > pubDatetime;
-
-const datetime = dayjs(isModified ? modDatetime : pubDatetime).tz(
-  postTimezone || SITE.timezone
-);
-
-const date = datetime.format("D MMM, YYYY"); // e.g., '22 Mar, 2025'
+const datetime = dayjs(pubDatetime).tz(postTimezone || SITE.timezone);
+const date = datetime.format("MMM D YYYY"); // e.g., 'Dec 22 2023'
 ---
 
-<div class:list={["flex items-center gap-x-2 opacity-80", className]}>
-  <IconCalendar
-    class:list={[
-      "inline-block size-6 min-w-5.5",
-      { "scale-90": size === "sm" },
-    ]}
-  />
-  {
-    isModified && (
-      <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
-        Updated:
-      </span>
-    )
-  }
-  <time
-    class:list={["text-sm", { "sm:text-base": size === "lg" }]}
-    datetime={datetime.toISOString()}>{date}</time
+<div class:list={["flex items-center", className]}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="mr-3 h-4 w-4 max-[500px]:h-3 max-[500px]:w-3"
+    viewBox="-0.5 0 15 15"
+    aria-hidden="true"
   >
+    <path
+      class="fill-foreground"
+      fill-rule="evenodd"
+      d="M61,154.006845 C61,153.45078 61.4499488,153 62.0068455,153 L73.9931545,153 C74.5492199,153 75,153.449949 75,154.006845 L75,165.993155 C75,166.54922 74.5500512,167 73.9931545,167 L62.0068455,167 C61.4507801,167 61,166.550051 61,165.993155 L61,154.006845 Z M62,157 L74,157 L74,166 L62,166 L62,157 Z M64,152.5 C64,152.223858 64.214035,152 64.5046844,152 L65.4953156,152 C65.7740451,152 66,152.231934 66,152.5 L66,153 L64,153 L64,152.5 Z M70,152.5 C70,152.223858 70.214035,152 70.5046844,152 L71.4953156,152 C71.7740451,152 72,152.231934 72,152.5 L72,153 L70,153 L70,152.5 Z"
+      transform="translate(-61 -152)"></path>
+  </svg>
+  <p
+    class:list={[
+      "text-sm leading-5 tracking-wide",
+      { "text-base": size === "lg" },
+      "max-[500px]:text-xs",
+    ]}
+  >
+    {date}
+  </p>
 </div>

@@ -5,23 +5,25 @@
 
 :root,
 html[data-theme="light"] {
-  --background: #fdfdfd;
-  --foreground: #282728;
-  --accent: #006cac;
+  --background: #e6e6e6;
+  --foreground: #000000;
+  --accent: #a682ff;
   --muted: #e6e6e6;
-  --border: #ece9e9;
+  --border: rgba(0, 0, 0, 0.2);
+  --scrollbar-size: 16px;
 }
 
 html[data-theme="dark"] {
-  --background: #212737;
-  --foreground: #eaedf3;
-  --accent: #ff6b01;
-  --muted: #343f60;
-  --border: #ab4b08;
+  --background: #1a1a1a;
+  --foreground: #ffffff;
+  --accent: #a682ff;
+  --muted: #1a1a1a;
+  --border: rgba(255, 255, 255, 0.2);
+  --scrollbar-size: 16px;
 }
 
 @theme inline {
-  --font-app: var(--font-google-sans-code);
+  --font-app: var(--font-sora);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
@@ -32,14 +34,13 @@ html[data-theme="dark"] {
 @layer base {
   * {
     @apply border-border outline-accent/75;
-    scrollbar-width: auto;
-    scrollbar-color: var(--color-muted) transparent;
   }
   html {
     @apply overflow-y-scroll scroll-smooth;
   }
   body {
-    @apply flex min-h-svh flex-col bg-background font-app text-foreground selection:bg-accent/75 selection:text-background;
+    @apply flex min-h-svh flex-col bg-background font-app text-foreground selection:bg-accent/75 selection:text-foreground;
+    @apply mx-auto w-full max-w-[900px] px-5;
   }
   a,
   button {
@@ -49,18 +50,49 @@ html[data-theme="dark"] {
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+  mark {
+    @apply bg-accent;
+  }
 }
 
 @utility max-w-app {
-  @apply max-w-3xl;
+  @apply max-w-[900px];
 }
 
 @utility app-layout {
-  @apply mx-auto w-full max-w-app px-4;
+  @apply w-full;
 }
 
 .active-nav {
   @apply underline decoration-wavy decoration-2 underline-offset-8;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background-color: var(--color-accent);
+}
+
+html::-webkit-scrollbar-corner,
+body::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+html::-webkit-scrollbar-button,
+body::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 /* Source: https://piccalil.li/blog/a-more-modern-css-reset/ */

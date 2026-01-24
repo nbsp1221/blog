@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import type { GetStaticPathsOptions } from "astro";
-import Main from "@/layouts/Main.astro";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -33,18 +32,22 @@ const { page, tagName } = Astro.props;
 
 <Layout title={`Tag: ${tagName} | ${SITE.title}`}>
   <Header />
-  <Main
-    pageTitle={[`Tag:`, `${tagName}`]}
-    titleTransition={tag}
-    pageDesc={`All the articles with the tag "${tagName}".`}
+  <main
+    id="main-content"
+    class="min-h-[calc(100dvh-90px-70px)] app-layout py-10 max-[500px]:min-h-[calc(100dvh-110px-70px)]"
   >
-    <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
+    <h2
+      class="mb-10 text-2xl font-medium tracking-wide text-accent max-[500px]:text-lg"
+    >
+      Posts tagged with{" "}
+      <span class="text-foreground" transition:name={tag}>#{tagName}</span>
+    </h2>
     <ul>
       {page.data.map(data => <Card {...data} />)}
     </ul>
-  </Main>
+  </main>
 
   <Pagination {page} />
 
-  <Footer noMarginTop={page.lastPage > 1} />
+  <Footer />
 </Layout>
