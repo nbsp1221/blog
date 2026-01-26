@@ -1,4 +1,4 @@
-import { defineConfig, envField, fontProviders } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 import markdoc from "@astrojs/markdoc";
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
@@ -65,15 +65,5 @@ export default defineConfig({
   },
   experimental: {
     preserveScriptOrder: true,
-    fonts: [
-      {
-        name: "Sora",
-        cssVariable: "--font-sora",
-        provider: fontProviders.google(),
-        fallbacks: ["sans-serif"],
-        weights: [400, 500, 700],
-        styles: ["normal"],
-      },
-    ],
   },
 });

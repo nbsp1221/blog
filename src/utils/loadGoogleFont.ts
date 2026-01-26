@@ -1,57 +1,42 @@
-async function loadGoogleFont(
-  font: string,
-  text: string,
-  weight: number
-): Promise<ArrayBuffer> {
-  const API = `https://fonts.googleapis.com/css2?family=${font}:wght@${weight}&text=${encodeURIComponent(text)}`;
+const PRETENDARD_VERSION = "1.3.9";
+const PRETENDARD_BASE =
+  "https://cdn.jsdelivr.net/npm/pretendard@" +
+  PRETENDARD_VERSION +
+  "/dist/public/static/alternative";
 
-  const css = await (
-    await fetch(API, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; de-at) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1",
-      },
-    })
-  ).text();
-
-  const resource = css.match(
-    /src: url\((.+?)\) format\('(opentype|truetype)'\)/
-  );
-
-  if (!resource) throw new Error("Failed to download dynamic font");
-
-  const res = await fetch(resource[1]);
+async function loadPretendardFont(weight: number): Promise<ArrayBuffer> {
+  const fileName =
+    weight >= 700 ? "Pretendard-Bold.ttf" : "Pretendard-Regular.ttf";
+  const res = await fetch(`${PRETENDARD_BASE}/${fileName}`);
 
   if (!res.ok) {
-    throw new Error("Failed to download dynamic font. Status: " + res.status);
+    throw new Error("Failed to download Pretendard font. Status: " + res.status);
   }
 
   return res.arrayBuffer();
 }
 
 async function loadGoogleFonts(
-  text: string
+  _text: string
 ): Promise<
   Array<{ name: string; data: ArrayBuffer; weight: number; style: string }>
 > {
   const fontsConfig = [
     {
-      name: "Sora",
-      font: "Sora",
+      name: "Pretendard",
       weight: 400,
       style: "normal",
     },
     {
-      name: "Sora",
-      font: "Sora",
+      name: "Pretendard",
       weight: 700,
       style: "bold",
     },
   ];
 
   const fonts = await Promise.all(
-    fontsConfig.map(async ({ name, font, weight, style }) => {
-      const data = await loadGoogleFont(font, text, weight);
+    fontsConfig.map(async ({ name, weight, style }) => {
+      const data = await loadPretendardFont(weight);
       return { name, data, weight, style };
     })
   );
