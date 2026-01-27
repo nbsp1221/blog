@@ -5,12 +5,15 @@
   .app-prose {
     @apply prose leading-loose tracking-wide text-foreground;
 
-    h1,
+    h1 {
+      @apply font-medium text-accent;
+    }
+
     h2,
     h3,
     h4,
     th {
-      @apply font-medium text-accent;
+      @apply font-medium text-foreground;
     }
 
     h3 {
