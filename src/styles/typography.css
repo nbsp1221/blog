@@ -34,6 +34,16 @@
       @apply wrap-break-word text-foreground underline underline-offset-4 focus-visible:no-underline;
     }
 
+    a.heading-link {
+      @apply no-underline;
+      color: inherit;
+    }
+
+    a.heading-link:hover,
+    a.heading-link:focus-visible {
+      color: var(--accent);
+    }
+
     ul {
       @apply overflow-x-clip;
     }

@@ -100,4 +100,42 @@ const postTags = tags ?? [];
     </article>
   </main>
   <Footer />
+  <script is:inline>
+    const addHeadingLinks = () => {
+      const headings = Array.from(
+        document.querySelectorAll("#article h2, #article h3, #article h4, #article h5, #article h6")
+      );
+
+      for (const heading of headings) {
+        if (!heading.id) continue;
+        if (heading.querySelector("a.heading-link")) continue;
+
+        const headingText = heading.textContent?.trim() ?? "";
+        heading.classList.add("group");
+
+        const link = document.createElement("a");
+        link.className =
+          "heading-link ms-2 inline-flex items-center opacity-50 no-underline md:opacity-0 md:group-hover:opacity-100 md:focus-visible:opacity-100";
+        link.href = `#${heading.id}`;
+
+        const icon = document.createElement("span");
+        icon.setAttribute("aria-hidden", "true");
+        icon.textContent = "#";
+        link.appendChild(icon);
+
+        const srOnly = document.createElement("span");
+        srOnly.className = "sr-only";
+        srOnly.textContent = headingText
+          ? `Section link: ${headingText}`
+          : "Section link";
+        link.appendChild(srOnly);
+
+        heading.appendChild(link);
+      }
+    };
+
+    const setupHeadingLinks = () => addHeadingLinks();
+    document.addEventListener("astro:page-load", setupHeadingLinks);
+    document.addEventListener("astro:after-swap", setupHeadingLinks);
+  </script>
 </Layout>
