@@ -88,7 +88,8 @@
     }
 
     .astro-code code {
-      @apply flex-[1_0_100%] bg-inherit p-0;
+      @apply flex-[1_0_100%] bg-transparent p-0;
+      background-color: transparent !important;
     }
 
     blockquote {
@@ -110,10 +111,12 @@
 
   /* ===== Code Blocks & Syntax Highlighting ===== */
   .astro-code {
-    @apply flex border bg-(--shiki-light-bg) text-(--shiki-light) outline-border [&_span]:text-(--shiki-light);
+    --shiki-light-bg: rgba(0, 0, 0, 0.03) !important;
+    @apply flex rounded-lg bg-(--shiki-light-bg) text-(--shiki-light) outline-border [&_span]:text-(--shiki-light);
   }
 
   html[data-theme="dark"] .astro-code {
+    --shiki-dark-bg: rgba(255, 255, 255, 0.03) !important;
     @apply bg-(--shiki-dark-bg) text-(--shiki-dark) [&_span]:text-(--shiki-dark);
   }
 
