@@ -81,10 +81,11 @@
 
     code {
       @apply text-foreground before:content-none after:content-none;
+      font-family: var(--font-code);
     }
 
     code:not(pre code) {
-      @apply rounded-[10px] border border-border px-1.5 py-0.5 wrap-break-word;
+      @apply rounded-[10px] border border-border px-1.5 py-0.5 wrap-break-word font-normal;
     }
 
     .astro-code code {
@@ -106,6 +107,7 @@
 
     pre {
       @apply focus-visible:border-transparent focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-dashed;
+      font-family: var(--font-code);
     }
   }
 
@@ -113,6 +115,7 @@
   .astro-code {
     --shiki-light-bg: rgba(0, 0, 0, 0.03) !important;
     @apply flex rounded-lg bg-(--shiki-light-bg) text-(--shiki-light) outline-border [&_span]:text-(--shiki-light);
+    font-family: var(--font-code);
   }
 
   html[data-theme="dark"] .astro-code {
