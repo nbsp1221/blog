@@ -12,6 +12,12 @@ export default [
         ...globals.node,
       },
     },
+    rules: {
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { args: "after-used", argsIgnorePattern: "^_" },
+      ],
+    },
   },
   { rules: { "no-console": "error" } },
   { ignores: ["dist/**", ".astro", "public/pagefind/**"] },

@@ -10,7 +10,9 @@ async function loadPretendardFont(weight: number): Promise<ArrayBuffer> {
   const res = await fetch(`${PRETENDARD_BASE}/${fileName}`);
 
   if (!res.ok) {
-    throw new Error("Failed to download Pretendard font. Status: " + res.status);
+    throw new Error(
+      "Failed to download Pretendard font. Status: " + res.status
+    );
   }
 
   return res.arrayBuffer();
