@@ -1,0 +1,41 @@
+<script is:inline>
+  (() => {
+    if (window.__themeControllerInitialized) return;
+    window.__themeControllerInitialized = true;
+
+    const root = document.documentElement;
+    const setTheme = (mode) => {
+      const isDark = mode === 'dark';
+      if (isDark) {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+      root.setAttribute('data-theme', isDark ? 'github-dark' : 'github-light');
+    };
+
+    const syncTheme = () => {
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const mode = stored ? stored : prefersDark ? 'dark' : 'light';
+      setTheme(mode);
+    };
+
+    const toggleTheme = () => {
+      const isDark = root.classList.contains('dark');
+      const next = isDark ? 'light' : 'dark';
+      localStorage.setItem('theme', next);
+      setTheme(next);
+    };
+
+    syncTheme();
+    document.addEventListener('astro:after-swap', syncTheme);
+    document.addEventListener('astro:page-load', syncTheme);
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (!target.closest('[data-theme-toggle]')) return;
+      toggleTheme();
+    });
+  })();
+</script>

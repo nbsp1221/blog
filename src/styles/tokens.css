@@ -1,0 +1,36 @@
+@layer base {
+  :root {
+    --font-sans:
+      'Pretendard Variable', 'Pretendard', ui-sans-serif, system-ui, sans-serif,
+      'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-mono:
+      'Cascadia Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+      'Courier New', monospace;
+    --palette-black: 0, 0, 0;
+    --palette-white: 255, 255, 255;
+    --palette-gray-50: 253, 253, 253;
+    --palette-gray-900: 26, 26, 26;
+    --palette-border-light: 229, 231, 235;
+    --palette-border-mid: 209, 213, 219;
+    --palette-accent: #a682ff;
+    --palette-accent-dark: #6f52e6;
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 10%);
+
+    --color-text: var(--palette-black);
+    --color-text-muted: var(--palette-black);
+    --color-heading: var(--palette-black);
+    --color-bg: var(--palette-gray-50);
+    --color-surface: var(--palette-white);
+    --color-border-light: var(--palette-border-light);
+    --color-border-mid: var(--palette-border-mid);
+    --color-accent: var(--palette-accent);
+    --color-accent-dark: var(--palette-accent-dark);
+  }
+
+  html.dark {
+    --color-text: var(--palette-white);
+    --color-text-muted: var(--palette-white);
+    --color-heading: var(--palette-white);
+    --color-bg: var(--palette-gray-900);
+  }
+}

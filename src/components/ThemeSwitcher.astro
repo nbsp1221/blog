@@ -1,0 +1,17 @@
+---
+import MoonIcon from '../assets/icons/MoonIcon.svg';
+import SunIcon from '../assets/icons/SunIcon.svg';
+---
+
+<div class="flex flex-col justify-center">
+  <button
+    type="button"
+    class="relative cursor-pointer"
+    data-theme-toggle
+    aria-label="Switch to light / dark version"
+  >
+    <SunIcon class="text-ink hidden fill-current dark:block" />
+    <MoonIcon class="text-ink fill-current dark:hidden" />
+    <span class="sr-only">Switch to light / dark version</span>
+  </button>
+</div>

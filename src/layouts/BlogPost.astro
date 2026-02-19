@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import PostInfo from '../components/PostInfo.astro';
+import ThemeController from '../components/ThemeController.astro';
+import { ClientRouter } from 'astro:transitions';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate, tags } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+    <ClientRouter />
+    <style>
+      main {
+        width: 100%;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <article>
+        <div id="markdown" class="prose app-prose">
+          <PostInfo title={title} date={pubDate} tags={tags} />
+          <slot />
+        </div>
+      </article>
+    </main>
+    <Footer />
+    <ThemeController />
+  </body>
+</html>

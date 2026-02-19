@@ -1,69 +1,30 @@
-import { defineConfig, envField } from "astro/config";
-import markdoc from "@astrojs/markdoc";
-import react from "@astrojs/react";
-import tailwindcss from "@tailwindcss/vite";
-import sitemap from "@astrojs/sitemap";
-import keystatic from "@keystatic/astro";
-import remarkToc from "remark-toc";
-import remarkCollapse from "remark-collapse";
-import {
-  transformerNotationDiff,
-  transformerNotationHighlight,
-  transformerNotationWordHighlight,
-} from "@shikijs/transformers";
-import { transformerFileName } from "./src/utils/transformers/fileName";
-import { SITE } from "./src/config";
+import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
+import { defineConfig } from 'astro/config';
+import tailwindcss from '@tailwindcss/vite';
+import expressiveCode from 'astro-expressive-code';
 
 // https://astro.build/config
 export default defineConfig({
-  site: SITE.website,
+  site: 'https://example.com',
   integrations: [
-    markdoc(),
-    react(),
-    keystatic(),
-    sitemap({
-      filter: page => SITE.showArchives || !page.endsWith("/archives"),
+    expressiveCode({
+      themes: ['github-dark', 'github-light'],
+      styleOverrides: {
+        frames: {
+          editorActiveTabIndicatorTopColor: 'transparent',
+          editorActiveTabBorderColor: '#80808080',
+          editorTabBarBorderBottomColor: '#80808080',
+          tooltipSuccessBackground: 'black',
+        },
+        uiFontFamily: 'inherit',
+        borderColor: '#80808080',
+      },
     }),
+    mdx(),
+    sitemap(),
   ],
-  markdown: {
-    remarkPlugins: [remarkToc, [remarkCollapse, { test: "Table of contents" }]],
-    shikiConfig: {
-      // For more themes, visit https://shiki.style/themes
-      themes: { light: "light-plus", dark: "dark-plus" },
-      defaultColor: false,
-      wrap: false,
-      transformers: [
-        transformerFileName({ style: "v2", hideDot: false }),
-        transformerNotationHighlight(),
-        transformerNotationWordHighlight(),
-        transformerNotationDiff({ matchAlgorithm: "v3" }),
-      ],
-    },
-  },
   vite: {
-    // eslint-disable-next-line
-    // @ts-ignore
-    // This will be fixed in Astro 6 with Vite 7 support
-    // See: https://github.com/withastro/astro/issues/14030
     plugins: [tailwindcss()],
-    optimizeDeps: {
-      exclude: ["@resvg/resvg-js"],
-    },
-  },
-  image: {
-    responsiveStyles: true,
-    layout: "constrained",
-  },
-  env: {
-    schema: {
-      PUBLIC_GOOGLE_SITE_VERIFICATION: envField.string({
-        access: "public",
-        context: "client",
-        optional: true,
-      }),
-    },
-  },
-  experimental: {
-    preserveScriptOrder: true,
   },
 });

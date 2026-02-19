@@ -1,0 +1,79 @@
+/*
+  The CSS in this style tag is based off of Bear Blog's default CSS.
+  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
+  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
+ */
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: rgb(var(--color-border-light));
+  }
+
+  body {
+    font-family: var(--font-sans);
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: start;
+    background: rgb(var(--color-bg));
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    color: rgb(var(--color-text));
+    font-size: 16px;
+    line-height: 24px;
+    max-width: 900px;
+  }
+  main {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 40px 0;
+    min-height: calc(100dvh - var(--spacing-90) - var(--spacing-70));
+  }
+  strong,
+  b {
+    font-weight: 700;
+  }
+  code,
+  pre,
+  kbd,
+  samp {
+    font-family: var(--font-mono);
+  }
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--color-accent-dark);
+  }
+  p {
+    margin-bottom: 1em;
+  }
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+  input {
+    font-size: 16px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid rgb(var(--color-border-light));
+  }
+  @media (max-width: 720px) {
+    body {
+      font-size: 16px;
+    }
+    main {
+      padding: 40px 0;
+      min-height: calc(100dvh - var(--spacing-110) - var(--spacing-70));
+    }
+  }
+}

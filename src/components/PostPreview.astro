@@ -1,0 +1,33 @@
+---
+import FormattedDate from './FormattedDate.astro';
+import CalendarIcon from '../assets/icons/CalendarIcon.svg';
+
+const { url, title, description, pubDate } = Astro.props;
+---
+
+<div class="mb-15 last:mb-0">
+  <div class="max-w-full">
+    <a class="group text-accentColor inline-block max-w-full duration-200" href={url}>
+      <h2
+        transition:name={`${title}-${pubDate}`}
+        class="text-accentColor w500:text-lg my-0 text-2xl font-medium wrap-break-word"
+      >
+        {title}
+      </h2>
+      <span
+        class="bg-accentColor relative bottom-0.5 block h-0.5 max-w-0 transition-all duration-300 group-hover:max-w-full"
+      ></span>
+    </a>
+  </div>
+  <p class="w500:text-sm w500:leading-2p2 mt-2.5 mb-5 leading-relaxed tracking-wide">
+    {description}
+  </p>
+  <div class="flex w-max items-center">
+    <CalendarIcon
+      class="w500:h-3 w500:w-3 fill-lightModeText dark:fill-darkModeText mr-3 h-4 w-4"
+    />
+    <p class="w500:text-xs w500:leading-4 m-0 text-sm leading-5 tracking-wide">
+      <FormattedDate date={pubDate} />
+    </p>
+  </div>
+</div>

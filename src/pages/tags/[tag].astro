@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import PostPreview from '../../components/PostPreview.astro';
+import ThemeController from '../../components/ThemeController.astro';
+import { ClientRouter } from 'astro:transitions';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const uniqueTags = [...new Set(posts.flatMap((post) => post.data.tags))];
+
+  return uniqueTags.map((tag) => {
+    const filteredPosts = posts.filter((post) => post.data.tags.includes(tag));
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
+}
+
+type Post = CollectionEntry<'blog'>;
+const { tag } = Astro.params;
+const { posts }: { posts: Post[] } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={`Posts tagged with ${tag}`} description={`Posts tagged with #${tag}.`} />
+    <ClientRouter />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h2 class="text-accentColor w500:text-lg mb-10 text-2xl font-medium tracking-wide">
+        Posts tagged with
+        <span class="text-lightModeText dark:text-darkModeText">#{tag}</span>
+      </h2>
+      <div>
+        {
+          posts.map((post) => (
+            <PostPreview
+              url={`/blog/${post.id}/`}
+              title={post.data.title}
+              description={post.data.description}
+              pubDate={post.data.pubDate}
+            />
+          ))
+        }
+      </div>
+    </main>
+    <Footer />
+    <ThemeController />
+  </body>
+</html>

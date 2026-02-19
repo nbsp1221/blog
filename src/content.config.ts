@@ -1,25 +1,19 @@
-import { defineCollection, z } from "astro:content";
-import { glob } from "astro/loaders";
-import { SITE } from "@/config";
-
-export const BLOG_PATH = "src/data/blog";
+import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdoc}", base: `./${BLOG_PATH}` }),
+  // Load Markdown and MDX files in the `src/content/blog/` directory.
+  loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
+  // Type-check frontmatter using a schema
   schema: ({ image }) =>
     z.object({
-      author: z.string().default(SITE.author),
-      pubDatetime: z.date(),
-      modDatetime: z.date().optional().nullable(),
       title: z.string(),
-      featured: z.boolean().optional(),
-      draft: z.boolean().optional(),
-      tags: z.array(z.string()).default(["others"]),
-      ogImage: image().or(z.string()).optional(),
       description: z.string(),
-      canonicalURL: z.string().optional(),
-      hideEditPost: z.boolean().optional(),
-      timezone: z.string().optional(),
+      // Transform string to Date object
+      pubDate: z.coerce.date(),
+      updatedDate: z.coerce.date().optional(),
+      tags: z.array(z.string()),
+      heroImage: image().optional(),
     }),
 });
 

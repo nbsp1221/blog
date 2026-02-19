@@ -1,25 +1,41 @@
 ---
-import { getCollection } from "astro:content";
-import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
-import Card from "@/components/Card.astro";
-import getSortedPosts from "@/utils/getSortedPosts";
-import { SITE } from "@/config";
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import PostPreview from '../components/PostPreview.astro';
+import ThemeController from '../components/ThemeController.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { ClientRouter } from 'astro:transitions';
 
-const posts = await getCollection("blog", ({ data }) => !data.draft);
-const sortedPosts = getSortedPosts(posts);
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 ---
 
-<Layout title={SITE.title}>
-  <Header />
-  <main
-    id="main-content"
-    class="min-h-[calc(100dvh-90px-70px)] app-layout py-10 max-[500px]:min-h-[calc(100dvh-110px-70px)]"
-  >
-    <ul>
-      {sortedPosts.map(data => <Card {...data} />)}
-    </ul>
-  </main>
-  <Footer />
-</Layout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <ClientRouter />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section>
+        {
+          posts.map((post) => (
+            <PostPreview
+              url={`/blog/${post.id}/`}
+              title={post.data.title}
+              description={post.data.description}
+              pubDate={post.data.pubDate}
+            />
+          ))
+        }
+      </section>
+    </main>
+    <Footer />
+    <ThemeController />
+  </body>
+</html>

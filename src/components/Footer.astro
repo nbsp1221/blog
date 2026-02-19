@@ -1,9 +1,7 @@
 ---
-const currentYear = new Date().getFullYear();
+const today = new Date();
 ---
 
-<footer
-  class="flex h-[70px] app-layout items-center justify-center text-center max-[500px]:text-sm"
->
-  Copyright &#169; {currentYear} | All rights reserved.
+<footer class="w500:text-sm flex h-70 items-center justify-center text-center">
+  Copyright © {today.getFullYear()} | All rights reserved.
 </footer>

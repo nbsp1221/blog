@@ -1,24 +1,21 @@
-import eslintPluginAstro from "eslint-plugin-astro";
-import globals from "globals";
-import tseslint from "typescript-eslint";
+import eslint from '@eslint/js';
+import { defineConfig } from 'eslint/config';
+import astro from 'eslint-plugin-astro';
+import tseslint from 'typescript-eslint';
 
-export default [
-  ...tseslint.configs.recommended,
-  ...eslintPluginAstro.configs.recommended,
+export default defineConfig(
+  eslint.configs.recommended,
+  tseslint.configs.recommended,
+  ...astro.configs.recommended,
   {
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-      },
-    },
+    ignores: ['dist/**', '.astro/**', 'node_modules/**', 'public/**'],
+  },
+  {
     rules: {
-      "@typescript-eslint/no-unused-vars": [
-        "error",
-        { args: "after-used", argsIgnorePattern: "^_" },
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { args: 'after-used', argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
     },
-  },
-  { rules: { "no-console": "error" } },
-  { ignores: ["dist/**", ".astro", "public/pagefind/**"] },
-];
+  }
+);

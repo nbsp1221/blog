@@ -1,0 +1,260 @@
+@utility app-prose {
+  width: 100%;
+  min-width: 100%;
+  max-width: none;
+  font-size: 16px;
+  line-height: 2;
+  letter-spacing: 0.4px;
+  color: rgb(var(--color-text));
+  --table-pad-x: 8px;
+  --table-pad-y: 8px;
+  --table-margin-bottom: 28px;
+  --blockquote-font-size: 16px;
+  --blockquote-line-height: 32px;
+  --blockquote-padding-left: 16px;
+  --blockquote-margin-bottom: 25.6px;
+  --tw-prose-body: rgb(var(--color-text));
+  --tw-prose-headings: var(--color-accent);
+  --tw-prose-links: rgb(var(--color-text));
+  --tw-prose-bold: rgb(var(--color-text));
+  --tw-prose-counters: rgb(var(--color-text));
+  --tw-prose-bullets: rgb(var(--color-text));
+  --tw-prose-counters: rgb(107, 114, 128);
+  --tw-prose-hr: rgb(var(--color-border-light));
+  --tw-prose-quotes: rgb(var(--color-text));
+  --tw-prose-quote-borders: rgb(var(--color-text));
+  --tw-prose-captions: rgb(var(--color-text));
+  --tw-prose-kbd: rgb(var(--color-text));
+  --tw-prose-code: rgb(var(--color-text));
+  --tw-prose-pre-code: rgb(var(--color-text));
+  --tw-prose-th-borders: rgb(var(--color-border-mid));
+  --tw-prose-td-borders: rgb(var(--color-border-light));
+}
+
+@layer utilities {
+  #markdown code:not(pre)::before,
+  #markdown code:not(pre)::after {
+    content: '';
+  }
+
+  #markdown.app-prose :is(h1, h2, h3, h4, h5, h6) {
+    font-weight: 500;
+    color: rgb(var(--color-text));
+  }
+
+  #markdown.app-prose h4 {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 0.5em;
+  }
+
+  #markdown.app-prose h5,
+  #markdown.app-prose h6 {
+    font-size: 16px;
+    line-height: 32px;
+    margin: 0;
+  }
+
+  #markdown.app-prose blockquote {
+    font-size: var(--blockquote-font-size);
+    line-height: var(--blockquote-line-height);
+    font-weight: 500;
+    padding-left: var(--blockquote-padding-left);
+    border-left-width: 4px;
+    border-top-color: rgb(var(--color-border-light));
+    border-right-color: rgb(var(--color-border-light));
+    border-bottom-color: rgb(var(--color-border-light));
+    border-left-color: rgb(var(--color-text));
+    margin-bottom: var(--blockquote-margin-bottom);
+  }
+
+  #markdown.app-prose p {
+    margin-bottom: 1.25em;
+  }
+
+  #markdown.app-prose ul,
+  #markdown.app-prose ol {
+    margin: 0 0 1.25em;
+    padding-left: 1.625em;
+    list-style-position: outside;
+  }
+
+  #markdown.app-prose :is(ul, ol) :is(ul, ol) {
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+  }
+
+  #markdown.app-prose table {
+    width: 100%;
+    margin-bottom: var(--table-margin-bottom);
+  }
+
+  #markdown.app-prose th {
+    padding: 1px var(--table-pad-x) var(--table-pad-y) 0;
+    font-weight: 500;
+  }
+
+  #markdown.app-prose td {
+    padding: var(--table-pad-y) var(--table-pad-x) var(--table-pad-y) 0;
+  }
+
+  #markdown.app-prose :is(th, td):not(:first-child) {
+    padding-left: var(--table-pad-x);
+  }
+
+  #markdown.app-prose :is(th, td):last-child {
+    padding-right: 0;
+  }
+
+  html #markdown.app-prose code:not(pre code) {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 0.875em;
+    line-height: inherit;
+    font-weight: 600;
+    letter-spacing: inherit;
+  }
+
+  #markdown.app-prose pre {
+    padding: 1.25em;
+    border-radius: 12px;
+    background: rgb(var(--color-surface));
+  }
+
+  #markdown.app-prose pre > code {
+    all: unset;
+  }
+
+  #markdown.app-prose code {
+    padding: 2px 6px;
+    background-color: rgba(0, 0, 0, 0%);
+    border-radius: 10px;
+  }
+
+  html.dark #markdown.app-prose code:not(pre code) {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.875em;
+    line-height: inherit;
+    font-weight: 600;
+    letter-spacing: inherit;
+    color: rgb(var(--color-text)) !important;
+  }
+
+  #markdown kbd {
+    font-size: 0.875em;
+    line-height: inherit;
+    letter-spacing: inherit;
+  }
+
+  #markdown.app-prose hr {
+    display: none;
+  }
+
+  html.dark #markdown blockquote {
+    border-left-color: rgb(var(--color-text)) !important;
+  }
+
+  html.dark #markdown ul li::marker {
+    color: var(--color-darkModeText) !important;
+  }
+
+  html.dark #markdown ol li::marker {
+    color: rgb(107, 114, 128) !important;
+  }
+
+  html.dark #markdown {
+    --tw-prose-kbd: var(--color-darkModeText) !important;
+  }
+
+  #markdown mark {
+    background-color: var(--color-accent) !important;
+    color: rgb(var(--palette-black)) !important;
+    text-decoration-color: rgb(var(--palette-black)) !important;
+  }
+
+  html.dark #markdown mark {
+    color: rgb(var(--palette-black)) !important;
+    text-decoration-color: rgb(var(--palette-black)) !important;
+    -webkit-text-fill-color: rgb(var(--palette-black)) !important;
+  }
+
+  html.dark #markdown kbd {
+    color: var(--color-darkModeText) !important;
+  }
+
+  #markdown .footnotes h2 {
+    margin: -1px;
+  }
+
+  #markdown tr {
+    border-bottom-color: rgb(var(--color-border-light));
+  }
+
+  #markdown thead {
+    border-bottom-color: rgb(var(--color-border-mid)) !important;
+  }
+
+  @media (max-width: 500px) {
+    #markdown.app-prose {
+      font-size: 14px;
+      line-height: 2.2;
+      letter-spacing: 0.35px;
+    }
+    #markdown.app-prose {
+      --table-pad-x: 7px;
+      --table-pad-y: 7px;
+      --table-margin-bottom: 24.5px;
+      --blockquote-font-size: 14px;
+      --blockquote-line-height: 30.8px;
+      --blockquote-padding-left: 14px;
+      --blockquote-margin-bottom: 22.4px;
+    }
+
+    #markdown.app-prose h1 {
+      font-size: 20px;
+      line-height: 28px;
+    }
+
+    #markdown.app-prose h2 {
+      font-size: 18px;
+      line-height: 28px;
+    }
+
+    #markdown.app-prose h3 {
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    #markdown.app-prose h4,
+    #markdown.app-prose h5,
+    #markdown.app-prose h6 {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    #markdown.app-prose {
+      font-size: 12px;
+      line-height: 2.2;
+      letter-spacing: 0.3px;
+    }
+    #markdown.app-prose {
+      --table-pad-x: 6px;
+      --table-pad-y: 6px;
+      --table-margin-bottom: 21px;
+      --blockquote-font-size: 12px;
+      --blockquote-line-height: 26.4px;
+      --blockquote-padding-left: 12px;
+      --blockquote-margin-bottom: 19.2px;
+    }
+  }
+}
+
+@layer base {
+  .prose code:not(pre)::before,
+  .prose code:not(pre)::after {
+    content: '' !important;
+  }
+}
