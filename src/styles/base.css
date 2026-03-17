@@ -48,6 +48,14 @@
   a:hover {
     color: var(--color-accent-dark);
   }
+  ::selection {
+    background-color: var(--color-selection-bg);
+    color: rgb(var(--color-text));
+  }
+  ::-moz-selection {
+    background-color: var(--color-selection-bg);
+    color: rgb(var(--color-text));
+  }
   p {
     margin-bottom: 1em;
   }

@@ -25,6 +25,7 @@
     --color-border-mid: var(--palette-border-mid);
     --color-accent: var(--palette-accent);
     --color-accent-dark: var(--palette-accent-dark);
+    --color-selection-bg: color-mix(in srgb, var(--color-accent) 75%, transparent);
   }
 
   html.dark {
