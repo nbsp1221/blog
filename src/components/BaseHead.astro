@@ -54,7 +54,7 @@ const { title, description, image = FallbackImage } = Astro.props;
       } else {
         root.classList.remove('dark');
       }
-      root.setAttribute('data-theme', isDark ? 'github-dark' : 'github-light');
+      root.setAttribute('data-theme', isDark ? 'dark-plus' : 'light-plus');
     } catch {
       // no-op: theme storage might be blocked
     }

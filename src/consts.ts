@@ -4,6 +4,6 @@
 export const SITE_TITLE = 'Astro Blog';
 export const SITE_DESCRIPTION = 'Welcome to my website!';
 export const THEME_NAMES = {
-  dark: 'github-dark',
-  light: 'github-light',
+  dark: 'dark-plus',
+  light: 'light-plus',
 } as const;
